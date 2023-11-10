@@ -54416,31 +54416,31 @@ r.at=B.yb
 s.ghT().v(0,"mainMenuOverlay")
 s.ghT().v(0,"clearOverlay")
 s.ghT().v(0,"gameOverOverlay")},
-Wi(){var s,r,q,p=this,o=p.c3.Sh()
-switch(o.a){case 0:s=p.fN
+Wi(){var s,r,q,p,o=this,n=o.c3.Sh()
+switch(n.a){case 0:s=o.fN
 s===$&&A.f()
 s.bm=!0
 break
-case 1:s=p.f9
+case 1:s=o.f9
 s===$&&A.f()
 s.bm=!0
 break
-case 2:s=p.I
+case 2:s=o.I
 s===$&&A.f()
 s.bm=!0
-break}s=p.aT
+break}s=o.aT
 s===$&&A.f()
 s.R=!0
-s=p.eA
+s=o.eA
 s===$&&A.f()
-s.P=!0
-s.a4=o
-s=p.bE
-r=s.ax
-r.sq(0,r.a+o.c)
-q=s.ay
-q.sq(0,q.a+1)
-if(J.e(q.a,10))if(r.a>=100)s.at=B.iJ
+r=s.P=!0
+s.a4=n
+s=o.bE
+q=s.ax
+q.sq(0,q.a+n.c)
+p=s.ay
+p.sq(0,p.a+1)
+if(!J.e(p.a,10)?q.a>=100:r)if(q.a>=100)s.at=B.iJ
 else s.at=B.iI},
 fC(){var s=0,r=A.V(t.H),q=this,p,o,n,m,l,k,j,i
 var $async$fC=A.W(function(a,b){if(a===1)return A.S(b,r)
