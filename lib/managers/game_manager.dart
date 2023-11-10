@@ -26,7 +26,7 @@ class GameManager extends Component with HasGameRef<TimingGame> {
   void hit({required HitType hitType}) {
     score.value += hitType.hitPoint;
     tapCount.value++;
-    if (tapCount.value == 10) {
+    if (tapCount.value == 10 || score.value >= 100) {
       if (score.value >= 100) {
         state = GameState.gameClear;
       } else {
