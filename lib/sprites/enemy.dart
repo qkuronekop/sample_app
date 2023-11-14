@@ -26,7 +26,23 @@ class Enemy extends SpriteComponent with HasGameRef<TimingGame> {
   }
 
   Future<void> _loadCharacterSprites() async {
-    sprite = await gameRef.loadSprite('game/dragon_ rock_.png');
+    final level = gameRef.levelManager.level;
+    switch (level) {
+      case 1:
+        sprite = await gameRef.loadSprite('game/dragon_ rock_.png');
+        break;
+      case 2:
+        sprite =
+            await gameRef.loadSprite('game/light-and-darkness-dragon_1.png');
+        break;
+      case 3:
+        sprite = await gameRef.loadSprite('game/magic-dragon_1.png');
+        break;
+    }
+  }
+
+  void reloadImage() {
+    _loadCharacterSprites();
   }
 
   void onHitEvent() {
@@ -43,6 +59,7 @@ class Enemy extends SpriteComponent with HasGameRef<TimingGame> {
       isHit = false;
     } else {
       opacity = 1.0;
+      // remove(hitEffect);
     }
   }
 }

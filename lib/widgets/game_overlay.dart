@@ -61,6 +61,17 @@ class _State extends State<GameOverlay> {
                   'Press',
                   style: TextStyle(color: Colors.white, fontSize: 28),
                 ),
+              )),
+          Positioned(
+              top: 60,
+              left: 20,
+              child: ValueListenableBuilder(
+                valueListenable: timingGame.levelManager.myLevel,
+                builder: (context, value, child) {
+                  return Text('Level $value',
+                      style:
+                          const TextStyle(fontSize: 24, color: Colors.amber));
+                },
               ))
         ],
       ),

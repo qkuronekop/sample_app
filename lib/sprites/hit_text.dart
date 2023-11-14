@@ -22,7 +22,9 @@ class HitText extends TextComponent with HasGameRef<TimingGame> {
 
   @override
   void update(double dt) {
-    _hitEvent();
+    if (isHit) {
+      _hitEvent();
+    }
     super.update(dt);
   }
 
@@ -32,19 +34,37 @@ class HitText extends TextComponent with HasGameRef<TimingGame> {
   }
 
   void _hitEvent() {
-    text = 'Hit ${type.hitPoint}';
+    final level = gameRef.levelManager;
+    final point = _point(hitType: type);
+    if (point == 0) {
+      text = 'Miss!';
+    } else {
+      text = 'Hit $point';
+    }
     counter++;
     textRenderer = TextPaint(
         style: TextStyle(
       fontSize: (64 + counter).toDouble(),
-      color: Colors.white.withOpacity(1.0 - (counter * 0.1)),
+      color: Colors.white,
     ));
-    if (counter == 10) {
+    if (counter >= 15) {
       isHit = false;
     }
     if (!isHit) {
       text = '';
       counter = 0;
+    }
+  }
+
+  int _point({required HitType hitType}) {
+    final level = gameRef.levelManager;
+    switch (hitType) {
+      case HitType.back:
+        return level.barLevel.backPoint;
+      case HitType.middle:
+        return level.barLevel.middlePoint;
+      case HitType.center:
+        return level.barLevel.centerPoint;
     }
   }
 }

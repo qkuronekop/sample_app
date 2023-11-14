@@ -1,21 +1,27 @@
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
+import 'package:sample_app/timing_game.dart';
 
-class BarMiddle extends RectangleComponent {
+class BarMiddle extends RectangleComponent with HasGameRef<TimingGame> {
   BarMiddle({required this.positionX, required this.sizeX})
       : super(
           paint: BasicPalette.darkBlue.paint(),
           anchor: Anchor.center,
         ) {
     position = Vector2(positionX, 200);
-    size = Vector2(sizeX * 0.5, 40);
   }
-
 
   final double positionX;
   final double sizeX;
 
   bool isBlinking = false;
+
+  @override
+  Future<void> onLoad() async {
+    super.onLoad();
+    final barLevel = gameRef.levelManager.barLevel;
+    size = Vector2(sizeX * barLevel.middleRatio, 40);
+  }
 
   @override
   void update(double dt) {
@@ -27,6 +33,15 @@ class BarMiddle extends RectangleComponent {
     isBlinking = true;
   }
 
+  void levelUp() {
+    final barLevel = gameRef.levelManager.barLevel;
+    size = Vector2(sizeX * barLevel.middleRatio, 40);
+  }
+
+  void reset() {
+    final barLevel = gameRef.levelManager.barLevel;
+    size = Vector2(sizeX * barLevel.middleRatio, 40);
+  }
 
   void _blinking() {
     if (isBlinking) {
@@ -36,5 +51,4 @@ class BarMiddle extends RectangleComponent {
       paint = BasicPalette.darkBlue.paint();
     }
   }
-
 }

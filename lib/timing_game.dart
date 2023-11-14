@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:sample_app/main.dart';
 import 'package:sample_app/managers/game_manager.dart';
 import 'package:sample_app/managers/hit_manager.dart';
+import 'package:sample_app/managers/level_manager.dart';
 import 'package:sample_app/sprites/bar_back.dart';
 import 'package:sample_app/sprites/bar_center.dart';
 import 'package:sample_app/sprites/bar_middle.dart';
@@ -12,6 +13,7 @@ import 'package:sample_app/sprites/player.dart';
 class TimingGame extends FlameGame {
   GameManager gameManager = GameManager();
   HitManager hitManager = HitManager();
+  LevelManager levelManager = LevelManager();
   late Player player;
   late BarBack barBack;
   late BarMiddle barMiddle;
@@ -24,6 +26,7 @@ class TimingGame extends FlameGame {
     await add(gameManager);
     await _setCharacter();
     await add(hitManager);
+    await add(levelManager);
   }
 
   @override
@@ -48,12 +51,24 @@ class TimingGame extends FlameGame {
     }
   }
 
-  void initializeGameStart() {
+  void gameStart() {
+    gameManager.reset();
+    gameManager.state = GameState.playing;
+    overlays.remove(mainMenuOverlay);
+    overlays.remove(clearOverlay);
+    overlays.remove(gameOverOverlay);
+  }
+
+  void reset() {
     gameManager.reset();
   }
 
-  void gameStart() {
-    initializeGameStart();
+  void levelUp() {
+    gameManager.scoreReset();
+    levelManager.levelUp();
+    barMiddle.levelUp();
+    barCenter.levelUp();
+    enemy.reloadImage();
     gameManager.state = GameState.playing;
     overlays.remove(mainMenuOverlay);
     overlays.remove(clearOverlay);

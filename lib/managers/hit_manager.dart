@@ -34,11 +34,7 @@ class HitManager extends Component with HasGameRef<TimingGame> {
 }
 
 enum HitType {
-  back(5),
-  middle(10),
-  center(15);
-
-  const HitType(this.hitPoint);
-
-  final int hitPoint;
+  back,
+  middle,
+  center;
 }

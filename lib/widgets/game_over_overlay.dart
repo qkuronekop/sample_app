@@ -36,7 +36,7 @@ class _State extends State<GameOverOverlay> {
                 game.gameStart();
               },
               child: const Text(
-                'もう一度遊ぶ',
+                '最初から',
                 style: TextStyle(fontSize: 24),
               )),
           const SizedBox(

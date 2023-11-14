@@ -24,7 +24,9 @@ class Player extends RectangleComponent with HasGameRef<TimingGame> {
   }
 
   void _move(double dt) {
+    final level = gameRef.levelManager.barLevel;
     double direction = 1;
+    double speed = level.speed;
     final velocity = Vector2(positionX, 200);
     final barStart = (gameRef.size.x * 0.1) / 2;
     final barWidth = gameRef.size.x * 0.9 + barStart;
@@ -38,9 +40,9 @@ class Player extends RectangleComponent with HasGameRef<TimingGame> {
       isRight = false;
     }
     if (isRight) {
-      position += velocity * dt;
+      position += velocity * dt * speed;
     } else {
-      position -= velocity * dt;
+      position -= velocity * dt * speed;
     }
   }
 }

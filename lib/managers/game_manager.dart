@@ -21,10 +21,20 @@ class GameManager extends Component with HasGameRef<TimingGame> {
     state = GameState.intro;
     score.value = 0;
     tapCount.value = 0;
+    final levelManager = gameRef.levelManager;
+    levelManager.reset();
+    gameRef.barMiddle.reset();
+    gameRef.barCenter.reset();
+    gameRef.enemy.reloadImage();
+  }
+
+  void scoreReset() {
+    score.value = 0;
+    tapCount.value = 0;
   }
 
   void hit({required HitType hitType}) {
-    score.value += hitType.hitPoint;
+    score.value += _score(hitType: hitType);
     tapCount.value++;
     if (tapCount.value == 10 || score.value >= 100) {
       if (score.value >= 100) {
@@ -32,6 +42,18 @@ class GameManager extends Component with HasGameRef<TimingGame> {
       } else {
         state = GameState.gameOver;
       }
+    }
+  }
+
+  int _score({required HitType hitType}) {
+    final level = gameRef.levelManager;
+    switch (hitType) {
+      case HitType.back:
+        return level.barLevel.backPoint;
+      case HitType.middle:
+        return level.barLevel.middlePoint;
+      case HitType.center:
+        return level.barLevel.centerPoint;
     }
   }
 }

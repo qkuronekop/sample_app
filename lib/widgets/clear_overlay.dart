@@ -31,15 +31,33 @@ class _State extends State<GameClearOverlay> {
             const SizedBox(
               height: 32,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  game.gameStart();
-                },
-                child: const Text(
-                  'もう一度遊ぶ',
-                  style: TextStyle(fontSize: 24),
-                )),
-            const SizedBox(height: 16,),
+            ValueListenableBuilder(
+              valueListenable: game.levelManager.myLevel,
+              builder: (context, value, child) {
+                if (value == 3) {
+                  return ElevatedButton(
+                      onPressed: () {
+                        game.gameStart();
+                      },
+                      child: const Text(
+                        '最初から',
+                        style: TextStyle(fontSize: 24),
+                      ));
+                } else {
+                  return ElevatedButton(
+                      onPressed: () {
+                        game.levelUp();
+                      },
+                      child: const Text(
+                        '次のレベルへ',
+                        style: TextStyle(fontSize: 24),
+                      ));
+                }
+              },
+            ),
+            const SizedBox(
+              height: 16,
+            ),
             ElevatedButton(
                 onPressed: () {
                   game.gameManager.state = GameState.intro;
